@@ -49,6 +49,7 @@ const Container = styled.div`
     min-height: calc(100vh - 70px);
     padding: o calc(3.5vw + 5px);
     position: relative;
+    margin: 30px;
 
 `
 
@@ -83,6 +84,8 @@ const ImageTitle = styled.div`
 const Controls = styled.div`
     display: flex;
     align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
 `
 const PlayButton = styled.button`
     border-radius: 4px;
@@ -129,8 +132,16 @@ const GroupWatchButton = styled(AddButton)`
     background: rgb(0, 0, 0);
 `
 
-const SubTitle = styled.div``
+const SubTitle = styled.div`
+    color: rgb(249, 249, 249);
+    font-size: 15px;
+    min-height: 20px;
+    margin-top: 26px;
+`
 
 const Description = styled.div`
-
+    line-height: 1.4;
+    font-size: 20px;
+    margin-top: 16px;
+    color: rgb(249, 249, 249);
 `
