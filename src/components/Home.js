@@ -1,15 +1,45 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import ImgSlider from './ImgSlider';
 import Viewers from './Viewers';
 import Movies from './Movies';
+import { useDispatch } from 'react-redux';
+import { setMovies } from '../features/movie/movieSlice';
+
+import { getMoviesList } from '../services/MovieList';
+
 
 const Home = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        let mounted = true;
+        let movieObjects
+
+        getMoviesList()
+        
+            .then(movies => {
+                if (mounted) {
+                    movieObjects = movies.map((movie) => {
+                        return {id: movie.id, ...movie}
+                    })
+                   
+                    dispatch(setMovies(movieObjects))
+                }
+            })
+            return () => mounted = false;  
+    }, [])
+
+    
+
     return (
         <Container>
             <ImgSlider/>
             <Viewers/>
-            <Movies/>
+            <Movies title="Recommended for You" />
+            <Movies title="Only Available on Disney +" />
+            <Movies title="Because you watched the Kobra kai" />
         </Container>
     )
 }

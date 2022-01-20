@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import { getMoviesList, getSingleMovie } from '../services/MovieList';
+import Movie from './Movie';
 
 const MovieDetail = () => {
+
+    const { id } = useParams();
+    console.log(`Movie Id: ${id}`);
+
+    const [ movie, setMovie ] = useState(["The Kobra Kai"])
+
+    useEffect(() => {
+        let mounted = true;
+        getSingleMovie(id)
+            .then(movies => {
+                setMovie(movies)
+            })
+
+    }, [])
+
+
     return (
         <Container>
             <Background>
-                <img src='https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimagesvc.meredithcorp.io%2Fv3%2Fmm%2Fimage%3Furl%3Dhttps%253A%252F%252Fstatic.onecms.io%252Fwp-content%252Fuploads%252Fsites%252F6%252F2018%252F03%252Fbao-rgb-s110_19e-pub16-215-2000.jpg&q=85' />
+                <img src={movie.cover} />
             </Background>
             <ImageTitle>
-                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgbMMhULLUlK5W0uPkZDJAeY3HaVAl-9vO0tXsah7fHGmtbUC6dGpVKnoxUjm5Sw3kCkY&usqp=CAU' />
+            <img src={movie.cover} />
             </ImageTitle>
             <Controls>
                 <PlayButton>
@@ -28,14 +47,11 @@ const MovieDetail = () => {
             </Controls>
 
             <SubTitle>
-                2018 . 7m . Family, Fantasy, Kids, Animation
+                {movie.title} || {movie.year} || {movie.genre}
             </SubTitle>
 
             <Description>
-            A Chinese-Canadian woman suffering from empty nest syndrome gets a second 
-            shot at motherhood when one of her handmade dumplings comes alive. A Chinese-Canadian 
-            woman suffering from empty nest syndrome gets a second shot at motherhood when one of 
-            her handmade dumplings comes alive.
+                {movie.description}
             </Description>
 
         </Container>
@@ -74,6 +90,7 @@ const ImageTitle = styled.div`
     min-height: 170px;
     width 35vw;
     min-width:200px;
+    margin-top: 60px;
 
     img {
         width: 100%;
@@ -137,6 +154,7 @@ const SubTitle = styled.div`
     font-size: 15px;
     min-height: 20px;
     margin-top: 26px;
+    font-weight: bold;
 `
 
 const Description = styled.div`
@@ -144,4 +162,5 @@ const Description = styled.div`
     font-size: 20px;
     margin-top: 16px;
     color: rgb(249, 249, 249);
+    max-width: 760px;
 `

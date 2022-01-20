@@ -3,6 +3,8 @@ import './App.css';
 import Header from './components/Header';
 import Home from './components/Home';
 import MovieDetail from './components/MovieDetail';
+import Login from './components/Login';
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -18,6 +20,8 @@ function App() {
         <Header />
           <Fragment>
             <Routes>
+              <Route exact path="/detail/:id" element={<MovieDetail />} />
+              <Route exact path="/login" element={<Login />} />
               <Route exact path="/detail" element={<MovieDetail />} />
               <Route exact path="/" element={<Home />} />
             </Routes>
